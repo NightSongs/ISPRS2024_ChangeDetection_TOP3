@@ -12,6 +12,7 @@
 我们使用CLIP方法预训练的ConvNeXt模型，以convnext-large为例，预训练权重下载地址为https://huggingface.co/laion/CLIP-convnext_large_d_320.laion2B-s29B-b131K-ft-soup/tree/main. 您可以将它们下载(.bin文件)并手动存放于pretrain目录下面。
 
 您也可以使用百度网盘下载我们使用到的预训练权重：
+
 链接：https://pan.baidu.com/s/13DVT5JIFPPd7yCwWeUZyuQ?pwd=wj92 
 提取码：wj92 
 
