@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
-
 import cv2
 import numpy as np
+import os
+import sys
+import time
 import torch
 import torch.nn.functional as func
 from tqdm import tqdm
-import time
 
 from nets.upernet import UPerNet
 from utils.dataset import build_infer_dataloader
@@ -37,47 +36,40 @@ def find_small_areas(image, k):
 
 if __name__ == '__main__':
     batch_size = 16
-    time.sleep(100)
     input_dir = sys.argv[1]
     output_dir = sys.argv[2]
     os.makedirs(output_dir, exist_ok=True)
 
-    model_path_list = ["checkpoints/upernet_resnet18_drop0.5_droppath0.5_Convf_62e_w-o-aug/seg_model_all.pth"]
+    model_path_list = ["checkpoints/upernet_convnext_large_clip_drop0.5_droppath0.5_Convf_62e_aug/seg_model_all.pth",
+                       "checkpoints/upernet_hrnet_w48_drop0.5_droppath0.5_Convf_62e_aug/seg_model_all.pth"]
 
     test_dataset = get_test_dataset(input_dir)
 
     for i, model_path in enumerate(model_path_list):
         i += 1
-        model = UPerNet(backbone_name='resnet18',
-                        dropout=0.5,
-                        drop_path_rate=0.5,
-                        pretrained=False,
-                        num_classes=7,
-                        fusion_form='conv',
-                        scse=False)
-        # if 'base' in model_path:
-            # model = UPerNet(backbone_name='convnext_base_clip',
-            #                 dropout=0.5,
-            #                 drop_path_rate=0.5,
-            #                 pretrained=False,
-            #                 num_classes=7,
-            #                 fusion_form='conv',
-            #                 scse=False)
-        # else:
-        #     model = UPerNet(backbone_name='convnext_large_clip',
-        #                     dropout=0.5,
-        #                     drop_path_rate=0.5,
-        #                     pretrained=False,
-        #                     num_classes=7,
-        #                     fusion_form='conv',
-        #                     scse=False)
+        if 'large' in model_path:
+            model = UPerNet(backbone_name='convnext_large_clip',
+                            dropout=0.5,
+                            drop_path_rate=0.5,
+                            pretrained=False,
+                            num_classes=7,
+                            fusion_form='conv',
+                            scse=False)
+        else:
+            model = UPerNet(backbone_name='hrnet_w48',
+                            dropout=0.5,
+                            drop_path_rate=0.5,
+                            pretrained=False,
+                            num_classes=7,
+                            fusion_form='conv',
+                            scse=False)
         model = model.cuda()
         state_dict = torch.load(model_path)
         model.load_state_dict(state_dict)
         model.eval()
         globals()[f'model{i}'] = model  # 以全局变量的形式提前加载模型, 能够有效地加速推理过程(需要忽略编辑器报错)
 
-    model_list = [model1]
+    model_list = [model1, model2]
 
     test_loader = build_infer_dataloader(test_dataset, batch_size)
 
@@ -98,6 +90,7 @@ if __name__ == '__main__':
             x1, x2 = x1.to(DEVICE), x2.to(DEVICE)
 
             for model in model_list:
+
                 out1 = model(x1, x2)
 
                 if out1.shape[-2:] != [610, 610]:

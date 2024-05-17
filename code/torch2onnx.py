@@ -4,7 +4,7 @@ import torch
 from torch.optim.swa_utils import AveragedModel
 from nets.upernet import UPerNet
 
-model = UPerNet(backbone_name='convnext_base_clip',
+model = UPerNet(backbone_name='convnext_large_clip',
                 dropout=0.5,
                 drop_path_rate=0.5,
                 pretrained=True,
@@ -12,7 +12,7 @@ model = UPerNet(backbone_name='convnext_base_clip',
                 fusion_form='conv',
                 scse=False)
 
-model_name = "upernet_convnext_base_clip_drop0.5_droppath0.5_Convf_62e_w-oaug"
+model_name = "upernet_convnext_large_clip_drop0.5_droppath0.5_Convf_62e_aug"
 
 torch_model_path = f"/mnt/d/competition/ISPRS2024/code/checkpoints/{model_name}/seg_model_1.pth"
 onnx_model_path = f"/mnt/d/competition/ISPRS2024/code/checkpoints/onnx/{model_name}"

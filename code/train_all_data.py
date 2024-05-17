@@ -81,13 +81,20 @@ class HybirdLoss(nn.Module):
 
 # 加载模型
 def load_model(DEVICE, num_classes):
-    model = UPerNet(backbone_name='convnext_base_clip',
+    model = UPerNet(backbone_name='convnext_large_clip',
                     dropout=0.5,
                     drop_path_rate=0.5,
                     pretrained=True,
                     num_classes=num_classes,
                     fusion_form='conv',
                     scse=False)
+    # model = UPerNet(backbone_name='hrnet_w48',
+    #                 dropout=0.5,
+    #                 drop_path_rate=0.5,
+    #                 pretrained=True,
+    #                 num_classes=num_classes,
+    #                 fusion_form='conv',
+    #                 scse=False)
     model.to(DEVICE)
     return model
 
@@ -130,7 +137,8 @@ if __name__ == '__main__':
     lr = 1e-4
     setup_seed(random_seed)
     data_root = '/mnt/c/dataset_tmp'
-    model_save_dir = "upernet_convnext_base_clip_drop0.5_droppath0.5_Convf_62e_aug"
+    model_save_dir = "upernet_convnext_large_clip_drop0.5_droppath0.5_Convf_62e_aug"
+    # model_save_dir = "upernet_hrnet_w48_drop0.5_droppath0.5_Convf_62e_aug"
     os.makedirs(f"code/checkpoints/{model_save_dir}", exist_ok=True)
     logger = init_log('global', logging.INFO)
     logger.propagate = 0
