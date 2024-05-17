@@ -2,7 +2,7 @@
 
 这个仓库是earth-insights团队在[ISPRS2024第一技术委员会多模态遥感应用算法智能解译大赛](https://www.gaofen-challenge.com/challenge)中的解决方案，我们的决赛结果在所有团队的全部提交中精度排名第一，总成绩排名第三。
 
-
+![image](https://github.com/NightSongs/ISPRS2024_ChangeDetection_TOP3/blob/main/resources/rank.png)
 
 ## &#x1F3AC; 开始
 
