@@ -85,5 +85,11 @@ python infer.py
 如果您觉得本代码有用，可以考虑引用我们的工作：
 
 ```bibtex
-TODO
+@article{opencd,
+  title   = {{Open-CD}: A Comprehensive Toolbox for Change Detection},
+  author  = {Li, Kaiyu and Jiang, Jiawei and Codegoni, Andrea and Han, Chengxi and Deng, Yupeng and Chen, Keyan and Zheng, Zhuo and
+             Chen, Hao and Zou, Zhengxia and Shi, Zhenwei and Fang, Sheng and Meng, Deyu and Wang, Zhi and Cao, Xiangyong},
+  journal= {arXiv preprint arXiv:2407.15317},
+  year={2024}
+}
 ```
