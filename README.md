@@ -7,7 +7,7 @@
 ## &#x1F3AC; 开始
 
 ### :one: 环境安装
-我们在比赛中使用Python 3.8和Pytorch1.8.1， 您可以使用pip install -rrequirements.txt安装环境。
+我们在比赛中使用Python 3.8和Pytorch1.8.1， 您可以使用pip install -r requirements.txt安装环境。
 
 ### :two: 预训练权重下载
 
